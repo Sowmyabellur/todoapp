@@ -1,8 +1,11 @@
 const API_BASE_URL =
     process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
 
-async function request(url, options) {
-    const response = await fetch(`${API_BASE_URL}${url}`, options);
+async function request(url, options = {}) {
+    const response = await fetch(`${API_BASE_URL}${url}`, {
+        ...options,
+        credentials: 'include',
+    });
     if (!response.ok) {
         const errorData = await response
             .json()
